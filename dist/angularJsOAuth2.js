@@ -202,8 +202,12 @@
 			var url= service.authorizationUrl + '?' +
 							  'client_id=' + encodeURIComponent(service.clientId) + '&' +
 							  'redirect_uri=' + encodeURIComponent(performSilently?service.silentTokenRedirectUrl:service.redirectUrl) + '&' +
-							  'response_type=' + encodeURIComponent(service.responseType) + '&' +
-							  'scope=' + encodeURIComponent(service.scope);
+							  'response_type=' + encodeURIComponent(service.responseType);
+			var scopeArray = service.scope.split(' ');
+			angular.forEach(scopeArray, function(scope) {
+				url += "&scope="+scope;
+			})
+			
 			if (service.nonce) {
 				url += '&nonce=' + encodeURIComponent(service.nonce);
 			}
